@@ -18,7 +18,7 @@ const Nav = () => {
           <a className="hidden md:block" href="#skills"><i className="fa-solid fa-code"></i>&nbsp;&nbsp;Skills</a>
           <a className="hidden md:block" href="#history"><i className="fa-solid fa-clock-rotate-left"></i>&nbsp;&nbsp;Job History</a>
           <a className="hidden md:block" href="#about"><i className="fa-solid fa-person-hiking"></i>&nbsp;&nbsp;About Me</a>
-          <a href="mailto:daniel@onlyguera.com" className="text-white bg-[#618264] font-bold px-4 py-2 rounded-full"><i className="fa-solid fa-paper-plane"></i>&nbsp;&nbsp;<span className="hidden md:block">Work with me</span></a>
+          <a href="mailto:daniel@onlyguera.com" className="text-white bg-[#618264] font-bold px-4 py-2 rounded-full flex items-center"><i className="fa-solid fa-paper-plane"></i><span className="hidden md:block">&nbsp;&nbsp;Work with me</span></a>
         </div>
       </div>
     </nav>
