@@ -76,8 +76,8 @@ const History = () => {
     {
       company: "Wonderful Payments",
       role: "Lead Full-Stack Developer",
-      start: "Mar 2022",
-      end: "Present",
+      start: "Apr 2019",
+      end: "Jun 2022",
       description: "For my first full-time position I jumped straight into the deep end taking on a position as the lead developer for an up and coming Open Banking payments platform. During this time I delivered the full site in PHP, from signup, user dashboard, staff admin area and end-to-end payment flow.",
       jobSkills: ["PHP", "MySQL", "GIT"]
     }
