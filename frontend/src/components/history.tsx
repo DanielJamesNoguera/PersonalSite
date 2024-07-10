@@ -1,6 +1,6 @@
 import React from "react";
 import skillBadge from './skillBadge';
-import skills from '../constants';
+import { skills } from '../constants';
 
 const History = () => {
 

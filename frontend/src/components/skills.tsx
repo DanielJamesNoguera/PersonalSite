@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import skillBadge from './skillBadge';
-import skills from '../constants';
+import { skills } from '../constants';
 
 const Skills = () => {
   const [selectedArea, setSelectedArea] = useState(null as null | string);

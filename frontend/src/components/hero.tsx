@@ -9,7 +9,7 @@ const Hero = () => {
         <h1 className="font-extrabold text-5xl md:text-7xl">Hi there, I'm Daniel.</h1>
 
         <h3 className="text-xl md:text-2xl font-semibold">
-          A 26 year old, Berlin-based, Full-Stack Web Developer with over <span className="primary-underline">six years experience</span> working in the industry.
+          A 26 year old, Girona-based, Software Engineer with over <span className="primary-underline">six years experience</span> working in the industry.
         </h3>
 
         <p className="text-lg">
