@@ -11,6 +11,15 @@ const BodyComp = () => {
   const [measurementsModal, setMeasurementsModal] = useState(false);
   const [measurements, setMeasurements] = useState<Measurement[] | null>(null);
   const [valuesSetForToday , setValuesSetForToday] = useState(false);
+  const [comparisonMeasurements, setComparisonMeasurements] = useState([
+    { name: 'Weight', include: true },
+    { name: "Body Fat", include: true },
+    { name: "Muscle", include: true },
+    { name: "Protein", include: true },
+    { name: "BMI", include: false },
+    { name: "Visceral Fat", include: false },
+    { name: "Water", include: false },
+  ]);
 
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
@@ -38,8 +47,9 @@ const BodyComp = () => {
         console.error('Error fetching measurements:', error);
       }
     };
-    fetchMeasurements();
-  }, []);
+    
+    !measurementsModal && fetchMeasurements();
+  }, [measurementsModal]);
 
   return (
   <>
@@ -54,14 +64,25 @@ const BodyComp = () => {
         </button>
       )}
 
-      <div className="grid grid-cols-2 gap-6">
-        {measurements && itemsToMeasure.map((item, index) => (
-          <div className="bg-white pb-4 pt-6 pr-6 boxShadow">
-            <h2 className="text-2xl font-extrabold ml-6 mb-2">{item.name}:&nbsp;{measurements[measurements.length - 1][item.name]}{item.unit}</h2>
-            <SimpleLineChart chartData={measurements} keys={[item.name]} target={item.target} domain={item.domain} />
+      {measurements && 
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-white pb-4 pt-6 pr-6 boxShadow col-span-2">
+            <h2 className="text-2xl font-extrabold ml-6 mb-2">Weight:&nbsp;{measurements && measurements[measurements.length - 1].weight}kg</h2>
+            <SimpleLineChart 
+              chartData={measurements}
+              keys={comparisonMeasurements.filter((item) => item.include).map((item) => item.name)}
+            />
           </div>
-        ))}
-      </div>
+
+
+          {itemsToMeasure.map((item, index) => (
+            <div className="bg-white pb-4 pt-6 pr-6 boxShadow">
+              <h2 className="text-2xl font-extrabold ml-6 mb-2">{item.name}:&nbsp;{measurements[measurements.length - 1][item.name]}{item.unit}</h2>
+              <SimpleLineChart chartData={measurements} keys={[item.name]} target={item.target} domain={item.domain} />
+            </div>
+          ))}
+        </div>
+      }
     </div> 
   </>
   );

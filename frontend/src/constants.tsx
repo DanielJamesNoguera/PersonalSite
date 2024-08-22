@@ -23,13 +23,13 @@ const skills = [
 
 const itemsToMeasure = [
   {name: "Body Score", target: 100, unit: " points", domain: [50, 100]},
-  {name: "Weight", target: 65.8, unit: " kg", domain: [64, 80]},
-  {name: "BMI", target: 22.5, unit: " kg/m²", domain: [22, 26]},
-  {name: "Body Fat", target: 14.0, unit: "%", domain: [12, 24]},
+  {name: "Weight", target: 65.8, unit: " kg", domain: [70, 77]},
+  {name: "BMI", target: 22.5, unit: " kg/m²", domain: [23, 26]},
+  {name: "Body Fat", target: 14.0, unit: "%", domain: [20, 24]},
   {name: "Water", target: 55.0, unit: "%", domain: [52, 56]},
   {name: "Visceral Fat", target: 9.0, unit: "", domain: [8, 11]},
   {name: "Bone Mass", target: 3.7, unit: " kg", domain: [2, 4]},
-  {name: "Subcutaneous Fat", target: 15.0, unit: "%", domain: [12, 22]},
+  {name: "Subcutaneous Fat", target: 15.0, unit: "%", domain: [18, 22]},
   {name: "Muscle", target: 54.5, unit: " kg", domain: [53, 56]},
   {name: "Protein", target: 17.2, unit: "%", domain: [15, 18]},
   {name: "Skeletal Muscle Mass", target: 30, unit: " kg", domain: [29, 31]},

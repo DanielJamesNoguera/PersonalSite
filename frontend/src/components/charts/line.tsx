@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 
 const SimpleLineChart = ({ chartData, keys, target, domain }: any) => {
+  console.log(chartData, keys)
 
   interface DataPoint {
     [key: string]: any;

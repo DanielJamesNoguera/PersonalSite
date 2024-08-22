@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const uri = "mongodb+srv://doadmin:Kp97mZF45str0312@fitness-app-077e5092.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=fitness-app";
+const uri = process.env.MONGODB_URI;
 
 const client = new MongoClient(uri);
 

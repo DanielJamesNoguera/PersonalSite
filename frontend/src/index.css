@@ -63,3 +63,7 @@ code {
   margin-bottom: 10px;
   margin-top: 5px;
 }
+
+.card-shadow {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .24);
+}

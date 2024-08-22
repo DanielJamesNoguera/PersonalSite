@@ -19,6 +19,7 @@ const MeasurementsModal = ({ setModal }: { setModal: React.Dispatch<React.SetSta
     // Upload the measurements to the server
     try {
       await uploadMeasurements(formValues);
+      setModal(false);
     } catch (error) {
       console.error('Error uploading measurements:', error);
       alert('An error occurred while uploading the measurements.');
