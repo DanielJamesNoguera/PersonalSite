@@ -10,8 +10,13 @@ const WonderfulDemo = () => {
   const [transitionBank, setTransitionBank] = useState(null as null | string);
 
   useEffect(() => {
+
+    console.log("Getting bank selections from local storage...");
+
     // Get previously stored bank selections from local storage
     const bankSelections = localStorage.getItem('bankSelections');
+
+    console.log('bankSelections', bankSelections);
 
     if (bankSelections) {
       let bankSelectionsArray = JSON.parse(bankSelections);
@@ -130,8 +135,6 @@ const WonderfulDemo = () => {
 
   const dummyBankTransition = (bankName: string) => {
     console.log(`Transitioning to ${bankName}...`, previousBankSelections);
-
-
     setTransitionBank(bankName);
   }
 
@@ -205,7 +208,7 @@ const WonderfulDemo = () => {
                       src={bank?.selectionLogo} 
                       alt={`${bank.name ? bank.name : "monzo"} logo`} 
                       className="h-16 card-shadow cursor-pointer rounded-2xl" 
-                      onClick={() => dummyBankTransition(bank ? bank.name : "monzo")}
+                      onClick={() => getBankRedirectURL(bank ? bank.bank_id : "monzo", bankName)}
                     />
                     <h3 className="text-xs uppercase">{bank.name ? bank.name : "monzo"}</h3>
                   </div>
