@@ -41,7 +41,7 @@ const WonderfulDemo = () => {
 
     let topOffset = "0px";
     if (initialMultiBankState) {
-      topOffset = `${topOffsetIndexOfBank * 4 + 90}%`;
+      topOffset = `${topOffsetIndexOfBank * 7 + 75}%`;
     }
     else if (currentBankSelection) {
       topOffset = isSelected ? "0px" : `${topOffsetIndexOfBank * 7 + 75}%`;
@@ -197,7 +197,7 @@ const WonderfulDemo = () => {
               zIndex: 0,
             }}
           >
-            <p className="text-[#333333]">Complete this payment using</p>
+            <p className="text-[#333333] mt-10">Complete this payment using</p>
             <div className={`${previousBankSelections.length > 3 ? 'grid grid-cols-2' : 'flex'} gap-4 my-4`}>
               {previousBankSelections.map((bankName, index) => {
                 let bank = bankOptions.find(bank => bank.name === bankName);
@@ -216,6 +216,9 @@ const WonderfulDemo = () => {
                 }
               })}
             </div>
+
+            <p className="text-[#333333]">or select a different bank.<br /><br /><i className="fa-duotone fa-solid fa-down"></i></p>
+            
           </div>
         )}
 
