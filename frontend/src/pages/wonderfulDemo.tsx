@@ -99,7 +99,7 @@ const WonderfulDemo = () => {
                 className="h-16 card-shadow cursor-pointer rounded-2xl" 
                 onClick={() => getBankRedirectURL(bankData ? bankData.bank_id : "monzo", bankName)}
               />
-              <h3 className="text-xs uppercase">{bankName}</h3>
+              <h3 className="text-xs">{bankName}</h3>
               <h2 className="text-3xl font-bold mt-4">£{paymentAmount.toFixed(2)}</h2>
               <p className="text-[#333333]">{payeeName}</p>
           </div>
@@ -121,7 +121,7 @@ const WonderfulDemo = () => {
       name: 'HSBC',
       colour: '000000',
       logo: '/hsbc.png',
-      selectionLogo: '/revolutSelection.png',
+      selectionLogo: '/hsbcSelection.png',
       bank_id: "hsbc",
     },
     {
