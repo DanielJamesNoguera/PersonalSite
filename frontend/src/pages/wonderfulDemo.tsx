@@ -95,7 +95,7 @@ const WonderfulDemo = () => {
                 onClick={() => getBankRedirectURL(bankData ? bankData.bank_id : "monzo")}
               />
               <h3 className="text-xs uppercase">{bankName}</h3>
-              <h2 className="text-3xl font-bold mt-4">£{paymentAmount}</h2>
+              <h2 className="text-3xl font-bold mt-4">£{paymentAmount.toFixed(2)}</h2>
               <p className="text-[#333333]">{payeeName}</p>
           </div>
           )}
@@ -217,7 +217,7 @@ const WonderfulDemo = () => {
           {!currentBankSelection &&
             <div className="relative top-4 w-full text-center flex flex-col items-center">
               <img src="/check-instant.png" alt="Instant Payments" className="h-10 invert rounded-full" />
-              <h2 className="text-3xl font-bold mt-6">£{paymentAmount}</h2>
+              <h2 className="text-3xl font-bold mt-6">£{paymentAmount.toFixed(2)}</h2>
               <p className="text-[#333333]">{payeeName}</p>
               <p className="text-[#333333] text-center max-w-[350px] mt-6">Tap to select a bank and approve this transaction in your mobile banking app.</p>
             </div>
