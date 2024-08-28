@@ -33,4 +33,35 @@ router.post('/update-strava-token', async (req, res) => {
     : res.status(500).send('Something went wrong!');
 });
 
+router.post('/get-wonderful-redirect', async (req, res) => {
+  console.log(process.env.WONDERFUL_API_KEY, req.body.bankId);
+  
+  try {
+    const response = await fetch('https://api.wonderful.one/v2/quick-pay', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.WONDERFUL_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: 199,
+        merchant_payment_reference: 'WONDERFUL-DEMO-199',
+        redirect_url: process.env.WONDERFUL_REDIRECT_URL,
+        bank_id: req.body.bankId,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data); // Handle the response data as needed
+    res.json(data);
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+  }
+});
+
 module.exports = router;

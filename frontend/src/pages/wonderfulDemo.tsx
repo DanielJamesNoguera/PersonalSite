@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getWonderfulRedirectURL } from '../api';
 
 const WonderfulDemo = () => {
   const [previousBankSelections, setPreviousBankSelections] = useState([] as string[]);
@@ -31,6 +32,7 @@ const WonderfulDemo = () => {
     const isAbove = currentBankSelection && !isSelected;
     const indexOfSelectedBank = currentBankSelection ? bankOptions.findIndex(bank => bank.name === currentBankSelection) : null;
     const topOffsetIndexOfBank = !indexOfSelectedBank ? index : index < indexOfSelectedBank ? index : index - 1;
+    let bankData = isSelected ? bankOptions.find(bank => bank.name === bankName) : null;
 
     let topOffset = "0px";
     if (initialMultiBankState) {
@@ -40,60 +42,89 @@ const WonderfulDemo = () => {
       topOffset = isSelected ? "0px" : `${topOffsetIndexOfBank * 4 + 90}%`;
     }
     else {
-      topOffset = `${index * 125}px`;
+      topOffset = `${index * 125 + 250}px`;
     }
     
     return (
-      <div
-        key={index}
-        onClick={() => {
-          if (currentBankSelection && currentBankSelection !== bankName) {
-            setInitialMultiBankState(false);
-            setCurrentBankSelection(null);
-          }
-          else {
-            setInitialMultiBankState(false);
-            setCurrentBankSelection(bankName)
-          }
-        }}
-        className={`flex flex-col items-end justify-start w-full h-[175px] rounded-xl bg-[#${bankColour}] card-shadow cursor-pointer overflow-hidden p-2 border border-[#bcc0c1] transition-all duration-500 ease-in-out transform ${isSelected ? 'selected' : isAbove ? 'below' : ''}`}
-        style={{
-          position: 'absolute',
-          top: topOffset,
-          left: 0,
-          right: 0,
-          margin: '0 auto',
-          zIndex: isSelected ? 10 : index + 1,
-          backgroundColor: `#${bankColour}`,
-          transition: 'top 0.5s ease',
-        }}
-      >
-        <img src={bankLogo}
-          alt={`${bankName} logo`}
-          className="h-8"
-        />
-      </div>
+      <>
+        <div
+          key={index}
+          onClick={() => {
+            if (currentBankSelection && currentBankSelection !== bankName) {
+              setInitialMultiBankState(false);
+              setCurrentBankSelection(null);
+            }
+            else {
+              setInitialMultiBankState(false);
+              setCurrentBankSelection(bankName)
+            }
+          }}
+          className={`w-full ${isSelected ? 'rounded-t-xl' : 'rounded-xl'} card-shadow cursor-pointer overflow-hidden border border-[#bcc0c1] transition-all duration-500 ease-in-out transform ${isSelected ? 'selected' : isAbove ? 'below' : ''}`}
+          style={{
+            position: 'absolute',
+            top: topOffset,
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+            zIndex: index + 1,
+            transition: 'top 0.5s ease',
+          }}
+        >
+          <div 
+            className={`flex flex-col items-center justify-between w-full h-[175px] rounded-t-xl cursor-pointer overflow-hidden p-2`}
+            style={{backgroundColor: `#${bankColour}`,}}
+          >
+            <img src={bankLogo}
+              alt={`${bankName} logo`}
+              className="ml-auto h-6"
+            />
+            {isSelected && (
+              <>
+                <img src="/check-instant.png" alt={`Instant Payments`} className="h-10" />
+                <div className="w-full" />
+              </>
+            )}
+          </div>
+          {isSelected && bankData &&  (
+            <div key={index} className="flex flex-col items-center gap-2 py-10 bg-white">
+              <p className="text-[#333333] text-center max-w-[250px] mb-4">Tap to approve this transaction in your mobile banking app...</p>
+              <img 
+                src={bankData?.selectionLogo} 
+                alt={`${bankName} logo`} 
+                className="h-16 card-shadow cursor-pointer rounded-2xl" 
+                onClick={() => getBankRedirectURL(bankData ? bankData.bank_id : "monzo")}
+              />
+              <h3 className="text-xs uppercase">{bankName}</h3>
+              <h2 className="text-3xl font-bold mt-4">£{paymentAmount}</h2>
+              <p className="text-[#333333]">{payeeName}</p>
+          </div>
+          )}
+        </div>
+      </>
     );
   }
 
   const bankOptions = [
     {
-      name: 'Monzo Joint',
-      colour: 'f6f9f9',
+      name: 'Monzo',
+      colour: 'ff4c61',
       logo: '/monzojoint.png',
-      selectionLogo: '/monzojointSelection.png'
+      selectionLogo: '/monzojointSelection.png',
+      bank_id: "monzo",
     },
     {
-      name: 'Revolut',
-      colour: 'ff6d18',
-      logo: 'https://via.placeholder.com/150',
-      selectionLogo: '/revolutSelection.png'
+      name: 'HSBC',
+      colour: '000000',
+      logo: '/hsbc.png',
+      selectionLogo: '/revolutSelection.png',
+      bank_id: "hsbc",
     },
     {
       name: 'Starling',
-      colour: '1d1934',
-      logo: 'https://via.placeholder.com/150',
-      selectionLogo: '/starlingSelection.png'
+      colour: '6935d3',
+      logo: '/starling.png',
+      selectionLogo: '/starlingSelection.png',
+      bank_id: "starling",
     }
   ];
 
@@ -109,8 +140,23 @@ const WonderfulDemo = () => {
     setTransitionBank(bankName);
   }
 
+  const getBankRedirectURL = async (bankId: string) => {
+    try {
+      const response = await getWonderfulRedirectURL(bankId);
+      console.log('page response', response);
+
+      // Redirect to the bank's payment page
+      window.location.href = `${response}?redirect`;
+      
+      return response;
+    } catch (error) {
+      console.error('Error fetching redirect URL:', error);
+      throw error;
+    }
+  }
+
   return (
-    <div className="w-screen h-screen flex flex-col gap-10 p-4 md:p-8 bg-[#f2f2f7] relative">
+    <div className="max-w-screen max-h-screen h-screen w-screen flex flex-col gap-10 p-4 md:p-8 bg-[#f2f2f7] relative overflow-y-hidden">
       {transitionBank 
         ? (
           <div 
@@ -168,30 +214,14 @@ const WonderfulDemo = () => {
           </div>
         )}
 
-          {currentBankSelection && (
-            <div 
-              className="w-full text-center flex flex-col items-center justify-center "
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: 0,
-              }}
-            >
-              <p className="text-[#333333]">Complete this payment using your</p>
-              <h3 className="textlg font-bold uppercase">{currentBankSelection}&nbsp;account</h3>
-              <img 
-                src={bankOptions.find(bank => bank.name === currentBankSelection)?.selectionLogo} 
-                alt={`${currentBankSelection} logo`} 
-                className="h-16 mt-4 mb-8 card-shadow cursor-pointer rounded-2xl" 
-                onClick={() => dummyBankTransition(currentBankSelection)}
-              />
-              <h2 className="text-3xl font-bold">£{paymentAmount}</h2>
+          {!currentBankSelection &&
+            <div className="relative top-4 w-full text-center flex flex-col items-center">
+              <img src="/check-instant.png" alt="Instant Payments" className="h-10 invert rounded-full" />
+              <h2 className="text-3xl font-bold mt-6">£{paymentAmount}</h2>
               <p className="text-[#333333]">{payeeName}</p>
+              <p className="text-[#333333] text-center max-w-[350px] mt-6">Tap to select a bank and approve this transaction in your mobile banking app.</p>
             </div>
-          )}
+          }
         </div>
       }
     </div>

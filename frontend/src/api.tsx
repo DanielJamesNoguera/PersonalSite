@@ -40,3 +40,14 @@ export const updateStravaToken = async (code: string) => {
     throw error;
   }
 }
+
+export const getWonderfulRedirectURL = async (bankId: string) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/get-wonderful-redirect`, { bankId });
+    console.log('response', response);
+    return response.data.data.pay_link;
+  } catch (error) {
+    console.error('Error fetching redirect URL:', error);
+    throw error;
+  }
+}
