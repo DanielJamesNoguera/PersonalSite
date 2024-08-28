@@ -4,7 +4,7 @@ import { getWonderfulRedirectURL } from '../api';
 const WonderfulDemo = () => {
   const [previousBankSelections, setPreviousBankSelections] = useState([] as string[]);
   const [currentBankSelection, setCurrentBankSelection] = useState(null as null | string);
-  const [paymentAmount, setPaymentAmount] = useState(1.99);
+  const [paymentAmount, setPaymentAmount] = useState(0.10);
   const [payeeName, setPayeeName] = useState('All Ears Audio');
   const [initialMultiBankState, setInitialMultiBankState] = useState(false);
   const [transitionBank, setTransitionBank] = useState(null as null | string);

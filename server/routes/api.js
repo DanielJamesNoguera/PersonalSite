@@ -45,7 +45,7 @@ router.post('/get-wonderful-redirect', async (req, res) => {
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        amount: 199,
+        amount: 10,
         merchant_payment_reference: 'WONDERFUL-DEMO-199',
         redirect_url: process.env.WONDERFUL_REDIRECT_URL,
         bank_id: req.body.bankId,
