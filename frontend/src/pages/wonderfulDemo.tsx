@@ -39,7 +39,7 @@ const WonderfulDemo = () => {
       topOffset = `${topOffsetIndexOfBank * 4 + 90}%`;
     }
     else if (currentBankSelection) {
-      topOffset = isSelected ? "0px" : `${topOffsetIndexOfBank * 4 + 90}%`;
+      topOffset = isSelected ? "0px" : `${topOffsetIndexOfBank * 7 + 75}%`;
     }
     else {
       topOffset = `${index * 125 + 250}px`;
@@ -86,7 +86,7 @@ const WonderfulDemo = () => {
             )}
           </div>
           {isSelected && bankData &&  (
-            <div key={index} className="flex flex-col items-center gap-2 py-10 bg-white">
+            <div key={index} className="flex flex-col items-center gap-2 py-8 bg-white">
               <p className="text-[#333333] text-center max-w-[250px] mb-4">Tap to approve this transaction in your mobile banking app...</p>
               <img 
                 src={bankData?.selectionLogo} 
