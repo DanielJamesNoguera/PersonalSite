@@ -92,7 +92,7 @@ const WonderfulDemo = () => {
                 src={bankData?.selectionLogo} 
                 alt={`${bankName} logo`} 
                 className="h-16 card-shadow cursor-pointer rounded-2xl" 
-                onClick={() => getBankRedirectURL(bankData ? bankData.bank_id : "monzo")}
+                onClick={() => getBankRedirectURL(bankData ? bankData.bank_id : "monzo", bankName)}
               />
               <h3 className="text-xs uppercase">{bankName}</h3>
               <h2 className="text-3xl font-bold mt-4">£{paymentAmount.toFixed(2)}</h2>
@@ -130,18 +130,22 @@ const WonderfulDemo = () => {
 
   const dummyBankTransition = (bankName: string) => {
     console.log(`Transitioning to ${bankName}...`, previousBankSelections);
-    if (!previousBankSelections.includes(bankName)) {
-      console.log('Storing bank selection...');
-      // Store bank selections in local storage
-      localStorage.setItem('bankSelections', JSON.stringify([...previousBankSelections, bankName]));
-      setPreviousBankSelections([...previousBankSelections, bankName]);
-    }
+
 
     setTransitionBank(bankName);
   }
 
-  const getBankRedirectURL = async (bankId: string) => {
+  const getBankRedirectURL = async (bankId: string, bankName: string) => {
     try {
+
+      if (!previousBankSelections.includes(bankName)) {
+        console.log('Storing bank selection...');
+        // Store bank selections in local storage
+        localStorage.setItem('bankSelections', JSON.stringify([...previousBankSelections, bankName]));
+        setPreviousBankSelections([...previousBankSelections, bankName]);
+      }
+
+
       const response = await getWonderfulRedirectURL(bankId);
       console.log('page response', response);
 
