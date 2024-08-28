@@ -210,14 +210,12 @@ const WonderfulDemo = () => {
                       className="h-16 card-shadow cursor-pointer rounded-2xl" 
                       onClick={() => getBankRedirectURL(bank ? bank.bank_id : "monzo", bankName)}
                     />
-                    <h3 className="text-xs uppercase">{bank.name ? bank.name : "monzo"}</h3>
+                    <h3 className="text-xs">{bank.name ? bank.name : "monzo"}</h3>
                   </div>
                   );
                 }
               })}
             </div>
-            <h2 className="text-3xl font-bold">£{paymentAmount}</h2>
-            <p className="text-[#333333]">{payeeName}</p>
           </div>
         )}
 
